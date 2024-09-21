@@ -22,6 +22,7 @@
     "terminal.integrated.defaultProfile.osx": "fish",
     "editor.fontFamily": "'Cascadia Code', Menlo, Monaco, 'Courier New', monospace",
     "editor.fontSize": 12,
+    "editor.tabSize": 2,
     "editor.copyWithSyntaxHighlighting": true,
     "editor.fontLigatures": true,
     "files.insertFinalNewline": true,
@@ -38,30 +39,29 @@
     "python.envFile": "${workspaceFolder}/.env",
     "extensions.ignoreRecommendations": true,
     "redhat.telemetry.enabled": false,
-    "go.toolsManagement.autoUpdate": true,
+    // "go.toolsManagement.autoUpdate": true,
     "terminal.integrated.scrollback": 10000,
     "yaml.schemas": {
         "https://json.schemastore.org/github-workflow.json": ".github/workflows/**.yml"
     },
     "git.confirmSync": false,
     "editor.bracketPairColorization.enabled": true,
-    "workbench.colorTheme": "Catppuccin Mocha",
+    // "workbench.colorTheme": "Catppuccin Mocha",
     "window.commandCenter": false,
     "[python]": {
-        "editor.defaultFormatter": "charliermarsh.ruff",
         "editor.codeActionsOnSave": {
             "source.organizeImports": "explicit"
         }
     },
     "update.mode": "none",
-    "workbench.iconTheme": "catppuccin-mocha",
+    "workbench.editor.showTabs": "single",
     "git.ignoreRebaseWarning": true,
-    "github.copilot.enable": {
-        "*": true,
-        "plaintext": false,
-        "markdown": false,
-        "scminput": false
-    },
+    // "github.copilot.enable": {
+    //     "*": true,
+    //     "plaintext": false,
+    //     "markdown": false,
+    //     "scminput": false
+    // },
     "vs-kubernetes": {
         "vs-kubernetes.crd-code-completion": "enabled"
     },
@@ -69,7 +69,7 @@
         "editor.formatOnSave": false
     },
     "files.associations": {
-        "*.hujson": "jsonc"
+        "*.hujson": "jsonc",
     },
     "json.schemas": [
         {
@@ -82,21 +82,32 @@
         }
     ],
     "[github-actions-workflow]": {
-        "editor.tabSize": 2,
+        "editor.tabSize": 1,
         "editor.formatOnSave": true
     },
     "[gitignore]": {
         "editor.formatOnSave": false
     },
-    // "[terraform]": {
-    //     "editor.defaultFormatter": "gamunu.opentofu",
-    //     "editor.formatOnSave": true,
-    //     "editor.formatOnSaveMode": "file"
-    // },
-    // "[terraform-vars]": {
-    //     "editor.defaultFormatter": "gamunu.opentofu",
-    //     "editor.formatOnSave": true,
-    //     "editor.formatOnSaveMode": "file"
-    // },
-    // "opentofu.languageServer.opentofu.path": "/opt/homebrew/bin/tofu"
+    "[terraform]": {
+        "editor.defaultFormatter": "gamunu.opentofu",
+        "editor.formatOnSave": true,
+        "editor.formatOnSaveMode": "file"
+    },
+    "[terraform-vars]": {
+        "editor.defaultFormatter": "gamunu.opentofu",
+        "editor.formatOnSave": true,
+        "editor.formatOnSaveMode": "file"
+    },
+    "opentofu.languageServer.opentofu.path": "/opt/homebrew/bin/tofu",
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "emeraldwalk.runonsave": {
+        "commands": [
+            {
+                "cmd": "terragrunt hclfmt --terragrunt-hclfmt-file ${file}",
+                "isAsync": true,
+                "match": ".hcl"
+            }
+        ]
+    },
 }
