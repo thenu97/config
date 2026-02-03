@@ -19,6 +19,13 @@ c.keys = {
     mods = "ALT",
     action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
   },
+  {
+    key = 'DownArrow',
+    mods = 'SHIFT',
+    action = wezterm.action_callback(function(win, pane)
+      local tab, window = pane:move_to_new_window()
+    end),
+  },
   { key = 'LeftArrow', mods = 'CTRL|SHIFT', action = act.ActivateTabRelative(-1) },
   { key = 'RightArrow', mods = 'CTRL|SHIFT', action = act.ActivateTabRelative(1) },
   { key = '{', mods = 'CTRL|SHIFT', action = act.MoveTabRelative(-1) },
@@ -45,7 +52,27 @@ c.keys = {
       end),
       },
    },
+   { key = 'f', mods = 'CMD', action = act.Multiple({act.CopyMode("ClearPattern"), act.Search({ CaseSensitiveString = "" }), }) },
+
+   { key = 'Enter', mods = 'CMD', action = wezterm.action_callback(function(win, pane)
+      local prompt_regex = '.+\xee\x82\xb0'  -- my prompt ends with a powerline character 
+      local tab = pane:tab()
+      local txt = pane:get_logical_lines_as_text()
+      local cmd = string.gsub(txt, wezterm.strftime '%H:%M:%S', '')
+      wezterm.log_info('Command:', cmd)
+      for _, p in ipairs(tab:panes()) do
+        if p:pane_id() == pane:pane_id() then
+          wezterm.log_info('Sending \\n to own pane', p)
+          p:send_text('\n')
+        else
+          wezterm.log_info('Sending command\\n to pane', p)
+          p:send_text(cmd..'\n')
+        end
+      end
+    end)
+  },
 }
+
 
 c.send_composed_key_when_left_alt_is_pressed = true
 c.send_composed_key_when_right_alt_is_pressed = true
